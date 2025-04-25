@@ -14,7 +14,7 @@ export default function Sidebar() {
     const pathname = usePathname();
     
     return (
-        <aside className="flex flex-col items-center bg-[#5B1DC0] text-white h-screen w-[80px] py-8 fixed left-0 top-0">
+        <aside className="flex flex-col items-center bg-[#5B1DC0] text-white h-screen w-[80px] py-8 top-0">
             <div className="mb-8">
                 <div className="text-center">
                     <Image 
@@ -23,7 +23,7 @@ export default function Sidebar() {
                         width={0} 
                         height={0}
                         sizes='40px' 
-                        className='w-auto h-auto'
+                        className='w-auto h-auto lg:block hidden'
                         priority
                     />
                 </div>
@@ -32,18 +32,18 @@ export default function Sidebar() {
                 <Link href="/" className={`p-2 hover:bg-white/20 rounded-lg transition-colors ${pathname === '/' ? 'bg-white/20' : ''}`}>
                     <AiFillHome size={40} className={`${pathname === '/' ? 'text-[#F9AFE4]' : 'text-white'}`} />
                 </Link>
-                <Link href="/new" className="p-2 hover:bg-white/20 rounded-lg transition-colors">
-                    <MdLibraryAdd size={40} />
+                <Link href="/new-image" className={`p-2 hover:bg-white/20 rounded-lg transition-colors ${pathname === '/new-image' ? 'bg-white/20' : ''}`}>
+                    <MdLibraryAdd size={40} className={`${pathname === '/new-image' ? 'text-[#F9AFE4]' : 'text-white'}`} />
                 </Link>
-                <Link href="/notifications" className="p-2 hover:bg-white/20 rounded-lg transition-colors">
-                    <FaBell size={40} />
+                <Link href="/notifications" className={`p-2 hover:bg-white/20 rounded-lg transition-colors ${pathname === '/notifications' ? 'bg-white/20' : ''}`}>
+                    <FaBell size={40} className={`${pathname === '/notifications' ? 'text-[#F9AFE4]' : 'text-white'}`} />
                 </Link>
-                <Link href="/messages" className="p-2 hover:bg-white/20 rounded-lg transition-colors">
-                    <AiFillMessage size={40} />
+                <Link href="/messages" className={`p-2 hover:bg-white/20 rounded-lg transition-colors ${pathname === '/messages' ? 'bg-white/20' : ''}`}>
+                    <AiFillMessage size={40} className={`${pathname === '/messages' ? 'text-[#F9AFE4]' : 'text-white'}`} />
                 </Link>
             </nav>
-            <Link href="/settings" className="p-2 hover:bg-white/20 rounded-lg transition-colors mt-auto">
-                <RiSettingsFill size={40} />
+            <Link href="/settings" className={`p-2 hover:bg-white/20 rounded-lg transition-colors ${pathname === '/settings' ? 'bg-white/20' : ''}`}>
+                <RiSettingsFill size={40} className={`${pathname === '/settings' ? 'text-[#F9AFE4]' : 'text-white'}`} />
             </Link>
         </aside>
     );
