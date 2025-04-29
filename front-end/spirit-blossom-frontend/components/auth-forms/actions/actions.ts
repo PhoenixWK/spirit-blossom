@@ -1,6 +1,6 @@
 'use server'
 
-export async function loginAction(prevState: any, formData: FormData) {
+export async function loginAction(prevState: unknown, formData: FormData) {
     const email = formData.get('email')?.toString();
     const password = formData.get('password')?.toString();
 

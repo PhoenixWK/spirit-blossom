@@ -3,15 +3,10 @@
 import BackgroundWithTransitionEffect from "./BackgroundWithTransitionEffect";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function SidebarAndHeaderLayout({ children }: { children: React.ReactNode }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
-    
-    useEffect(() => {
-        setIsLoaded(true);
-    }, []);
     
     const toggleSidebar = () => {
         setIsSidebarOpen(prev => !prev);
