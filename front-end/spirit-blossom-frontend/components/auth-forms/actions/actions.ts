@@ -28,7 +28,7 @@ export async function loginAction(prevState: any, formData: FormData) {
         console.log("Content-Type:", contentType);
         
         let data;
-        let responseText = await response.text();
+        const responseText = await response.text();
         console.log("Raw response:", responseText);
         
         if (contentType.includes('application/json') && responseText) {
@@ -57,8 +57,8 @@ export async function loginAction(prevState: any, formData: FormData) {
             message: data.message || "Login successful",
             userId: data.userId
         };
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Error during login:", error);
-        return { error: `Connection failed: ${error.message}` };
+        return { error: `Connection failed: ${error instanceof Error ? error.message : 'Unknown error'}` };
     }
 }

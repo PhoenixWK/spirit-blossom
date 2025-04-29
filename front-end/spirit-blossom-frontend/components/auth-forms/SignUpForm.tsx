@@ -1,20 +1,18 @@
 'use client'
 
-import localFont from "next/font/local";
-import Image from "next/image";
-import Link from "next/link";
 import { useActionState, useEffect } from "react";
-import { loginAction } from "./actions/actions";
 import { useRouter } from "next/navigation";
-
-
+import { loginAction } from "./actions/actions";
+import Image from "next/image";
+import localFont from "next/font/local";
+import Link from "next/link";
 const rubikMonoOneFont = localFont({
     src: "../../public/fonts/RubikMonoOne-Regular.ttf",
     weight: "400",
     style: "normal",
 });
 
-export default function LoginForm() {
+export default function SignUpForm() {
 
     const [state, formAction, pending] = useActionState(loginAction, null);
     const router  = useRouter();
@@ -35,7 +33,7 @@ export default function LoginForm() {
                     className="w-auto h-auto"
                     priority
                 />
-                <h1 className={`mt-4 text-5xl ${rubikMonoOneFont.className} font-bold text-white tracking-wider`}>LOGIN</h1>
+                <h1 className={`mt-4 text-5xl ${rubikMonoOneFont.className} font-bold text-white tracking-wider`}>SIGNUP</h1>
             </div>
 
             <form action={formAction}>
@@ -56,6 +54,17 @@ export default function LoginForm() {
                         type="password" 
                         name="password"
                         id="password" 
+                        disabled={pending}
+                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-pink-400"
+                    />
+                </div>
+
+                <div className="mb-2">
+                    <label htmlFor="confirm_password" className="block text-lg text-white mb-1">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        name="confirm_password"
+                        id="confirm_password" 
                         disabled={pending}
                         className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-pink-400"
                     />
@@ -87,17 +96,17 @@ export default function LoginForm() {
                                 </div>
                             )
                         ) : (
-                            "Sign in"
+                            "Sign up"
                         )}
                     </button>
                     <button 
                         type="button" 
                         className="flex-1 py-4 px-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white font-medium rounded hover:opacity-90 transition-opacity cursor-pointer"
                     >
-                       <Link href="/signup-page">Sign up</Link>
+                        <Link href="/login-page">Sign in</Link>
                     </button>
                 </div>
             </form>
         </div>
-    );
+    )
 }

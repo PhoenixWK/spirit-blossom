@@ -1,32 +1,11 @@
 import Image from "next/image";
 import localFont from 'next/font/local'
+import Link from "next/link";
 
 interface HeaderProps {
     toggleSidebar: () => void;
 }
 
-const revansFont = localFont({
-    src: "../public/fonts/Revans-Medium.otf",
-})
-
-const categories = [
-    {
-        key: "irelia",
-        name: "Irelia",
-    },
-    {
-        key: "karma",
-        name: "Karma",
-    },
-    {
-        key: "zyra",
-        name: "Zyra",
-    },
-    {
-        key: "lillia",
-        name: "Lillia",
-    },
-]
 
 export default function Header({ toggleSidebar }: HeaderProps) {
 
@@ -60,17 +39,12 @@ export default function Header({ toggleSidebar }: HeaderProps) {
                         className="w-full bg-[#6407D6] rounded-full p-2"
                     />
                 </div>
-                <div className="w-[40px] h-[40px] ml-5 bg-[#6407D6] rounded-full">
-
-                </div>
+                <Link href="/login-page">
+                    <div className="w-[40px] h-[40px] ml-5 bg-[#6407D6] rounded-full">
+                
+                    </div>
+                </Link>
             </div>
-            <ul className="mt-5 flex gap-4">
-                {categories.map((category)=> (
-                    <li key={category.key} className={`${revansFont.className} text-lg`}>
-                        {category.name}
-                    </li>
-                ))}
-            </ul>
         </header>
     );
 }

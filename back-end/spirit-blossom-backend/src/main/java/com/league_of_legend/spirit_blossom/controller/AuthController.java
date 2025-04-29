@@ -5,7 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +17,6 @@ import com.league_of_legend.spirit_blossom.service.AuthService;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
     
     @Autowired
@@ -44,6 +44,16 @@ public class AuthController {
             response.put("message", "Login failed: " + e.getMessage());
             return ResponseEntity.status(500).body(response);
         }
+    }
+
+    @GetMapping("/user-profile/{userId}")
+    public UserAccount getUserAccount(@PathVariable String userId) {
+        return null;
+    }
+
+    @GetMapping("/hello-world")
+    public String helloWorld() {
+        return "Hello World";
     }
     
 }

@@ -7,6 +7,7 @@ import com.league_of_legend.spirit_blossom.model.UserAccount;
 import com.league_of_legend.spirit_blossom.service.AuthService;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -27,8 +28,15 @@ public class AuthImpl implements AuthService {
     }
 
     @Override
-    public void readUserAccount(String email, String password) {
-        
+    public UserAccount findUserAccountByEmailAndPassword(String email, String password) {
+        TypedQuery<UserAccount> readUserAccountQuery = entityManager.createQuery(
+            "FROM UserAccount WHERE email=:email and password=:password",
+            UserAccount.class
+        );
+        readUserAccountQuery.setParameter("email", email);
+        readUserAccountQuery.setParameter("password", password);
+
+        return readUserAccountQuery.getSingleResult();
     }
     
 }
