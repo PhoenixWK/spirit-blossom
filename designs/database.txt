@@ -1,0 +1,49 @@
+create table user_account(
+    user_id INT auto_increment not nulL unique,
+    email VARCHAR(255) not null unique,
+    username VARCHAR(255) not null unique,
+    password VARCHAR(255) default null,
+    created_at DATETIME not null,
+    
+    primary key(user_id)
+);
+
+create table user_profile(
+    profile_id VARCHAR(6) not null unique,
+    email VARCHAR(255) not null unique,
+    username VARCHAR(255) not null unique,
+    image VARCHAR(255) default null,
+    x_link VARCHAR(255) default null,
+    instagram_link VARCHAR(255) default null,
+    artstation_link VARCHAR(255) default null,
+    
+    primary key(profile_id)
+);
+
+create table user_type(
+    type_id VARCHAR(3) not null unique,
+    type_name VARCHAR(255) not null,
+    max_image_quality VARCHAR(255) default "1920x1080",
+    max_image_size VARCHAR(255) default "500kb",
+    price DECIMAL default 2.99,
+    
+    primary key(type_id)
+);
+
+alter table user_profile 
+add user_id INT not null unique;
+
+alter table user_profile
+add type_id VARCHAR(3) not null unique;
+
+alter table user_profile
+add foreign key(user_id) references user_account(user_id);
+
+alter table user_profile
+add foreign key(type_id) references user_type(type_id);
+
+drop table user_plan;
+
+
+
+
