@@ -30,7 +30,7 @@ public class AuthImpl implements AuthService {
     @Override
     public UserAccount findUserAccountByEmailAndPassword(String email, String password) {
         TypedQuery<UserAccount> readUserAccountQuery = entityManager.createQuery(
-            "FROM UserAccount WHERE email=:email and password=:password",
+            "from UserAccount WHERE email=:email and password=:password",
             UserAccount.class
         );
         readUserAccountQuery.setParameter("email", email);
