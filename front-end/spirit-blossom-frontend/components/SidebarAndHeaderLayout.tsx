@@ -18,7 +18,7 @@ export default function SidebarAndHeaderLayout({ children }: { children: React.R
                 <Sidebar />
             </div>
             {isSidebarOpen && (
-                <div className="fixed inset-0 bg-black/50 z-10 lg:hidden" onClick={toggleSidebar}>
+                <div className="fixed inset-0 bg-black/50 z-20 lg:hidden" onClick={toggleSidebar}>
                     <div className="h-screen w-[80px]" onClick={(e) => e.stopPropagation()}>
                         <Sidebar />
                     </div>
@@ -29,7 +29,7 @@ export default function SidebarAndHeaderLayout({ children }: { children: React.R
                 <BackgroundWithTransitionEffect
                         imgLink="/spirit-blossom-background.png"
                         containerClassName="relative min-h-screen pt-16"
-                        className="relative z-10 min-h-screen p-4 mt-16 lg:mt-0 transition-opacity duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}"
+                        className="relative z-0 min-h-screen p-4 mt-16 lg:mt-0 transition-opacity duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}"
                     >
                         {children}
                 </BackgroundWithTransitionEffect>

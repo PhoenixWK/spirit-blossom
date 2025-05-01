@@ -9,7 +9,7 @@ interface HeaderProps {
 export default function Header({ toggleSidebar }: HeaderProps) {
 
     return (
-        <header className="fixed w-full h-fit lg:w-auto lg:top-0 lg:right-0 lg:left-[80px] z-20 bg-[#5B1DC0] lg:bg-transparent py-6 px-4">
+        <header className="fixed w-full h-fit lg:w-auto lg:top-0 lg:right-0 lg:left-[80px] z-10 bg-[#5B1DC0] lg:bg-[#230069] py-6 px-4">
             <div className="flex items-center justify-between w-full">
                 <div onClick={toggleSidebar} className="lg:hidden cursor-pointer">
                     <Image 

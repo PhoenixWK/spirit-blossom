@@ -1,10 +1,11 @@
+import ListOfImages from "@/components/list-of-images/ListOfImages";
 import SidebarAndHeaderLayout from "@/components/SidebarAndHeaderLayout";
 
 export default function Home() {
   return (
     <SidebarAndHeaderLayout>
-      <div className="text-white">
-        <h1>Home</h1>
+      <div className="w-full h-full">
+        <ListOfImages />
       </div>
     </SidebarAndHeaderLayout>
   );
