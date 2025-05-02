@@ -1,16 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+import TopicFilterBar from "./TopicFilterBar";
 
 interface HeaderProps {
     toggleSidebar: () => void;
 }
 
-
 export default function Header({ toggleSidebar }: HeaderProps) {
 
     return (
         <header className="fixed w-full h-fit lg:w-auto lg:top-0 lg:right-0 lg:left-[80px] z-10 bg-[#5B1DC0] lg:bg-[#230069] py-6 px-4">
-            <div className="flex items-center justify-between w-full">
+            <div className=" mb-4 flex items-center justify-between w-full">
                 <div onClick={toggleSidebar} className="lg:hidden cursor-pointer">
                     <Image 
                         src="/menu.png"
@@ -44,6 +44,7 @@ export default function Header({ toggleSidebar }: HeaderProps) {
                     </div>
                 </Link>
             </div>
+            <TopicFilterBar />
         </header>
     );
 }
