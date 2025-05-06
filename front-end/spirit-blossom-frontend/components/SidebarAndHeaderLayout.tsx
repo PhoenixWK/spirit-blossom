@@ -29,7 +29,7 @@ export default function SidebarAndHeaderLayout({ children }: { children: React.R
                 <BackgroundWithTransitionEffect
                         imgLink="/spirit-blossom-background.png"
                         containerClassName="relative min-h-screen pt-16"
-                        className="relative z-0 min-h-screen p-4 mt-16 lg:mt-0 transition-opacity duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}"
+                        className="relative z-0 min-h-screen p-4 mt-16 lg:mt-0  transition-opacity duration-700 ease-in-out"
                     >
                         {children}
                 </BackgroundWithTransitionEffect>

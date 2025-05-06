@@ -25,7 +25,7 @@ export default function LoginForm() {
     }, [state, router]);
 
     return (
-        <div className="max-w-md w-full p-6 bg-[#7C3BFC]/25 rounded-lg shadow-lg border-2 border-[#7C3BFC]/50">
+        <div className="max-w-md w-full p-6 bg-[#7C3BFC]/25 rounded-lg shadow-lg border-2 border-[#FF41D9]">
             <div className="flex flex-col items-center mb-6">
                 <Image 
                     src="/spirit-blossom-logo.png"

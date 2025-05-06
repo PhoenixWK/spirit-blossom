@@ -21,7 +21,7 @@ export default function CloudinaryImage({image}: {image: CloudinaryImage}){
                 type: 'auto',
                 source: true
             }}      
-            className='rounded-lg'  
+            className='rounded-lg group-hover:opacity-50 transition-all duration-300 ease-in-out'  
          />
     );
 }
