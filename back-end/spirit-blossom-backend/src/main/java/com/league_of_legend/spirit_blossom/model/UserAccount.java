@@ -1,6 +1,7 @@
 package com.league_of_legend.spirit_blossom.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import jakarta.persistence.*;
 
@@ -9,9 +10,9 @@ import jakarta.persistence.*;
 public class UserAccount {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
-    private int id;
+    @GeneratedValue
+    @Column(name = "user_id", nullable = false, columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -19,8 +20,8 @@ public class UserAccount {
     @Column(name = "username", nullable = false, unique = true)
     private String userName;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "hashed_password")
+    private String hashed_password;
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -28,10 +29,10 @@ public class UserAccount {
     public UserAccount() {}
     public UserAccount(String email, String password) {
         this.email = email;
-        this.password = password;
+        this.hashed_password = password;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -47,8 +48,8 @@ public class UserAccount {
         this.userName = userName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String hashed_password) {
+        this.hashed_password = hashed_password;
     }
 
     public String getEmail() {
@@ -56,7 +57,7 @@ public class UserAccount {
     }
 
     public String getPassword() {
-        return password;
+        return hashed_password;
     }
 
     public String getUserName() {
