@@ -1,25 +1,23 @@
-package com.league_of_legend.spirit_blossom.service.impl;
+package com.league_of_legend.spirit_blossom.dao;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.api.ApiResponse;
 import com.cloudinary.utils.ObjectUtils;
 import com.league_of_legend.spirit_blossom.dto.CloudinaryImageDTO;
-import com.league_of_legend.spirit_blossom.service.CloudinaryService;
 
-@Service
-public class CloudinaryServiceImpl implements CloudinaryService{
+@Component
+public class CloudinaryDAOImpl implements CloudinaryDAO{
     private Cloudinary cloudinary;
 
     @Autowired
-    public CloudinaryServiceImpl(Cloudinary cloudinary) { 
+    public CloudinaryDAOImpl(Cloudinary cloudinary) { 
         this.cloudinary = cloudinary;
     }
 

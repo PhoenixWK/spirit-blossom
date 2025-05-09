@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.league_of_legend.spirit_blossom.dto.CloudinaryImageDTO;
 import com.league_of_legend.spirit_blossom.exception.CloudinaryException;
-import com.league_of_legend.spirit_blossom.service.impl.CloudinaryServiceImpl;
+import com.league_of_legend.spirit_blossom.service.CloudinaryService;
 
 @RestController
 @RequestMapping("/api/images")
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 public class CloudinaryController {
-    private CloudinaryServiceImpl cloudinaryServiceImpl;
+    private CloudinaryService cloudinaryService;
 
     @Autowired
-    public CloudinaryController(CloudinaryServiceImpl cloudinaryServiceImpl) {
-        this.cloudinaryServiceImpl = cloudinaryServiceImpl;
+    public CloudinaryController(CloudinaryService cloudinaryService) {
+        this.cloudinaryService = cloudinaryService;
     }
     
     @GetMapping("/all")
@@ -31,24 +31,7 @@ public class CloudinaryController {
         @RequestParam("folderpath") String folderPath,
         @RequestParam("max_results") int maxResult    
     ) {
-        /*try {
-            List<CloudinaryImageDTO> images = cloudinaryServiceImpl.getAllImages(folderPath, maxResult);
-
-            if(!images.isEmpty()) {
-                return ResponseEntity.ok(images);
-            } else {
-                Map<String, String> response = new HashMap<>();
-                response.put("message", "No images found in the specified folder");
-                return ResponseEntity.ok(response);
-            }
-        } catch(Exception e) {
-            Map<String, String> response = new HashMap<>();
-            response.put("error", "Failed to fetch images");
-            response.put("message", e.getMessage());
-            return ResponseEntity.status(500).body(response);
-        }*/
-
-        List<CloudinaryImageDTO> images = cloudinaryServiceImpl.getAllImages(folderPath, maxResult);
+        List<CloudinaryImageDTO> images = cloudinaryService.getAllImages(folderPath, maxResult);
 
         if(images.isEmpty()) {
             throw new CloudinaryException("No images found in the specified folder");

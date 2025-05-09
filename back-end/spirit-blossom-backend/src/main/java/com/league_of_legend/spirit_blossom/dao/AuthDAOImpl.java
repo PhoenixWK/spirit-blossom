@@ -1,22 +1,20 @@
-package com.league_of_legend.spirit_blossom.service.impl;
-
+package com.league_of_legend.spirit_blossom.dao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.league_of_legend.spirit_blossom.model.UserAccount;
-import com.league_of_legend.spirit_blossom.service.AuthService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Component;
 
-@Service
-public class AuthImpl implements AuthService {
+@Component
+public class AuthDAOImpl implements AuthDAO {
 
     private EntityManager entityManager;
 
     @Autowired
-    public AuthImpl(EntityManager entityManager) {
+    public AuthDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
