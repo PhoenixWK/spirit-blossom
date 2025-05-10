@@ -21,15 +21,16 @@ public class UserAccount {
     private String userName;
 
     @Column(name = "hashed_password")
-    private String hashed_password;
+    private String hashedPassword;
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
     public UserAccount() {}
-    public UserAccount(String email, String password) {
+    public UserAccount(String email, String userName, String password) {
         this.email = email;
-        this.hashed_password = password;
+        this.userName = userName;
+        this.hashedPassword = password;
     }
 
     public UUID getId() {
@@ -48,8 +49,8 @@ public class UserAccount {
         this.userName = userName;
     }
 
-    public void setPassword(String hashed_password) {
-        this.hashed_password = hashed_password;
+    public void setPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 
     public String getEmail() {
@@ -57,7 +58,7 @@ public class UserAccount {
     }
 
     public String getPassword() {
-        return hashed_password;
+        return hashedPassword;
     }
 
     public String getUserName() {

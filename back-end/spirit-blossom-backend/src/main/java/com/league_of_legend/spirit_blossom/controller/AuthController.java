@@ -7,10 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.league_of_legend.spirit_blossom.dto.UserAccountDTO;
 import com.league_of_legend.spirit_blossom.model.UserAccount;
 import com.league_of_legend.spirit_blossom.service.AuthService;
 
@@ -32,7 +34,7 @@ public class AuthController {
         @RequestParam("email") String email, 
         @RequestParam("password") String password
     ) throws AuthException {
-        UserAccount user = authService.findUserAccountByEmailAndPassword(email, password);
+        UserAccount user = authService.findUserAccountByEmailAndHashedPassword(email, password);
         Map<String, Object> response = new HashMap<>();
 
         if(user == null) {
@@ -41,6 +43,22 @@ public class AuthController {
         response.put("message", "Login successful");
         response.put("userId", user.getId());
                 
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> signUpUser(@RequestBody UserAccountDTO userAccountDTO) throws AuthException
+    {
+        UserAccount userAccount = authService.saveUserEmailAndHashedPassword(userAccountDTO);
+        Map<String, Object> response = new HashMap<>();
+
+        if(userAccount == null) {
+            throw new AuthException();
+        }
+
+        response.put("message", "Login successful");
+        response.put("userName", userAccount.getUserName());
+
         return ResponseEntity.ok(response);
     }
 

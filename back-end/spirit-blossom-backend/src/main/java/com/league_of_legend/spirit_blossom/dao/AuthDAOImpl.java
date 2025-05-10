@@ -5,7 +5,6 @@ import com.league_of_legend.spirit_blossom.model.UserAccount;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,9 +18,7 @@ public class AuthDAOImpl implements AuthDAO {
     }
 
     @Override
-    @Transactional
-    public void saveUserAccount(String email, String password) {
-        UserAccount userAccount = new UserAccount(email, password);
+    public void saveUserByEmailAndHashedPassword(UserAccount userAccount) {
         entityManager.persist(userAccount);
     }
 

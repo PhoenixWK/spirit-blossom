@@ -1,11 +1,14 @@
 'use client'
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { loginAction } from "./actions/actions";
+import { signUpAction } from "./actions/actions";
 import Image from "next/image";
 import localFont from "next/font/local";
 import Link from "next/link";
+import ModalContent from "../ModalContent";
+import { createPortal } from "react-dom";
+
 const rubikMonoOneFont = localFont({
     src: "../../public/fonts/RubikMonoOne-Regular.ttf",
     weight: "400",
@@ -13,12 +16,25 @@ const rubikMonoOneFont = localFont({
 });
 
 export default function SignUpForm() {
+    const [state, formAction, pending] = useActionState(signUpAction, null);
+    const router = useRouter();
+    const [showModal, setShowModal] = useState(false);
+    const [success, setSuccess] = useState(false);
 
-    const [state, formAction, pending] = useActionState(loginAction, null);
-    const router  = useRouter();
     useEffect(() => {
-        if(state?.success) {
-            router.push(`/user-profile/${state.userId}`);
+        if (state?.error) {
+            setShowModal(true);
+        }
+        
+        if (state?.success) {
+            setSuccess(true);
+            setShowModal(true);
+            
+            // Show success modal for 2 seconds before redirecting
+            setTimeout(() => {
+                setShowModal(false);
+                router.push(`/user-profile/${state.userName}`);
+            }, 2000);
         }
     }, [state, router]);
 
@@ -43,6 +59,19 @@ export default function SignUpForm() {
                         type="email" 
                         name="email"
                         id="email" 
+                        placeholder="Enter your email"
+                        disabled={pending}
+                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-pink-400"
+                    />
+                </div>
+
+                <div className="mb-2">
+                    <label htmlFor="userName" className="block text-lg text-white mb-1">Username</label>
+                    <input 
+                        type="text" 
+                        name="userName"
+                        id="userName" 
+                        placeholder="Enter your username(at least 10 characters)"
                         disabled={pending}
                         className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-pink-400"
                     />
@@ -54,17 +83,7 @@ export default function SignUpForm() {
                         type="password" 
                         name="password"
                         id="password" 
-                        disabled={pending}
-                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-pink-400"
-                    />
-                </div>
-
-                <div className="mb-2">
-                    <label htmlFor="confirm_password" className="block text-lg text-white mb-1">Confirm Password</label>
-                    <input 
-                        type="password" 
-                        name="confirm_password"
-                        id="confirm_password" 
+                        placeholder="at least 10 characters, contains at least one uppercase letter, one lowercase letter and one number"
                         disabled={pending}
                         className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-pink-400"
                     />
@@ -107,6 +126,40 @@ export default function SignUpForm() {
                     </button>
                 </div>
             </form>
+
+            {showModal && createPortal(
+                <div className="fixed p-4 inset-0 flex items-center justify-center z-50">
+                    <div 
+                        className="absolute inset-0 bg-black/75" 
+                        onClick={() => setShowModal(false)}
+                    ></div>
+                    <div className={`${success ? "bg-[#E44C89]" : " bg-[#824CE4]"} p-6 rounded-lg shadow-lg z-10 max-w-md w-full`}>
+                        <div className="flex flex-col items-center gap-2">
+                            <Image 
+                                src={success ? "/spirit-blossom-zyra.png" : "/spirit-blossom-irelia.png"}
+                                alt="Spirit Blossom Logo"
+                                width={100}
+                                height={100}
+                                loading="lazy"
+                                className="w-auto h-auto"
+                            />
+                            <h2 className={`${success ? "text-[#AE0261]" : "  text-[#4808BF]"} text-4xl font-bold text-center`}>
+                                {success ? "Signup successful!" : state?.error}
+                            </h2>
+                            {state?.error && (
+                                <p className="text-[#4801CD] text-lg font-semibold text-center">{state?.errorMessage}</p>
+                            )}
+                            <button 
+                                onClick={() => setShowModal(false)}
+                                className="px-4 py-2 bg-transparent text-white cursor-pointer"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>,
+                document.body
+            )}
         </div>
     )
 }
