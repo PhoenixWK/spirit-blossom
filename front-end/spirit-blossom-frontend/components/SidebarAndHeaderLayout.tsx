@@ -27,7 +27,7 @@ export default function SidebarAndHeaderLayout({ children }: { children: React.R
             <div className="flex-1 lg:ml-[80px] lg:mt-[60px]">
                 <Header toggleSidebar={toggleSidebar} />
                 <BackgroundWithTransitionEffect
-                        imgLink="/spirit-blossom-background.png"
+                        imgLink="/chengwei-pan-8.jpg"
                         containerClassName="relative min-h-screen pt-16"
                         className="relative z-0 min-h-screen p-4 mt-16 lg:mt-0  transition-opacity duration-700 ease-in-out"
                     >

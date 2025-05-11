@@ -3,9 +3,10 @@
 import localFont from "next/font/local";
 import Image from "next/image";
 import Link from "next/link";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { loginAction } from "./actions/actions";
 import { useRouter } from "next/navigation";
+import { createPortal } from "react-dom";
 
 
 const rubikMonoOneFont = localFont({
@@ -17,15 +18,28 @@ const rubikMonoOneFont = localFont({
 export default function LoginForm() {
 
     const [state, formAction, pending] = useActionState(loginAction, null);
+    const [showModal, setShowModal] = useState(false);
+    const [success, setSuccess] = useState(false);
     const router  = useRouter();
+    
     useEffect(() => {
-        if(state?.success) {
-            router.push(`/user-profile/${state.userId}`);
+        if (state?.error) {
+            setShowModal(true);
         }
+
+        if(state?.success) {
+            setSuccess(true);
+            setShowModal(true);
+            setTimeout(() => {
+                setShowModal(false);
+                router.push(`/user-profile/${state.userName}`);
+            }, 2000);
+        }
+        
     }, [state, router]);
 
     return (
-        <div className="max-w-md w-full p-6 bg-[#7C3BFC]/25 rounded-lg shadow-lg border-2 border-[#FF41D9]">
+        <div className="max-w-md w-full p-6 bg-[#7C3BFC]/25 rounded-lg shadow-lg border-2 border-[#7141ff]">
             <div className="flex flex-col items-center mb-6">
                 <Image 
                     src="/spirit-blossom-logo.png"
@@ -46,7 +60,7 @@ export default function LoginForm() {
                         name="email"
                         id="email" 
                         disabled={pending}
-                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-pink-400"
+                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-[#7141ff]"
                     />
                 </div>
 
@@ -57,7 +71,7 @@ export default function LoginForm() {
                         name="password"
                         id="password" 
                         disabled={pending}
-                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-pink-400"
+                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-[#7141ff]"
                     />
                 </div>
 
@@ -68,7 +82,7 @@ export default function LoginForm() {
                 <div className="flex gap-4">
                     <button 
                         type="submit" 
-                        className="flex-1 py-4 px-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white font-medium rounded hover:opacity-90 transition-opacity cursor-pointer"
+                        className="flex-1 py-4 px-4 bg-gradient-to-r bg-[#7141ff] text-white font-medium rounded hover:opacity-90 transition-opacity cursor-pointer"
                     >
                         {pending ? (
                             (
@@ -93,11 +107,45 @@ export default function LoginForm() {
                     <button 
                         type="button" 
                         className="flex-1 py-4 px-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white font-medium rounded hover:opacity-90 transition-opacity cursor-pointer"
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.preventDefault()}
                     >
                        <Link href="/signup-page">Sign up</Link>
                     </button>
                 </div>
             </form>
+            {showModal && createPortal(
+                <div className="fixed p-4 inset-0 flex items-center justify-center z-50">
+                    <div 
+                        className="absolute inset-0 bg-black/75" 
+                        onClick={() => setShowModal(false)}
+                    ></div>
+                    <div className={`${success ? "bg-[#E44C89]" : " bg-[#824CE4]"} p-6 rounded-lg shadow-lg z-10 max-w-md w-full`}>
+                        <div className="flex flex-col items-center gap-2">
+                            <Image 
+                                src={success ? "/spirit-blossom-zyra.png" : "/spirit-blossom-irelia.png"}
+                                alt="Spirit Blossom Logo"
+                                width={100}
+                                height={100}
+                                loading="lazy"
+                                className="w-auto h-auto"
+                            />
+                            <h2 className={`${success ? "text-[#AE0261]" : "  text-[#4808BF]"} text-4xl font-bold text-center`}>
+                                {success ? "Login successful!" : state?.error}
+                            </h2>
+                            {state?.error && (
+                                <p className="text-[#4801CD] text-lg font-semibold text-center">{state?.error}</p>
+                            )}
+                            <button 
+                                onClick={() => setShowModal(false)}
+                                className="px-4 py-2 bg-transparent text-white cursor-pointer"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>,
+                document.body
+            )}
         </div>
     );
 }

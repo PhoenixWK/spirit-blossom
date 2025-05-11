@@ -4,7 +4,7 @@ import BackgroundWithTransitionEffect from "@/components/BackgroundWithTransitio
 export default function SignUpPage() {
     return (
         <BackgroundWithTransitionEffect 
-            imgLink="/spirit-blossom-irelia-ashe.jpg"
+            imgLink="/chengwei-pan-8.jpg"
             containerClassName="relative min-h-screen"
             className="relative z-10 min-h-screen p-4 transition-opacity duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'} flex items-center justify-center"
         >

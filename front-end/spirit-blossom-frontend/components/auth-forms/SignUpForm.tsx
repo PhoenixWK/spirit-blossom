@@ -6,7 +6,6 @@ import { signUpAction } from "./actions/actions";
 import Image from "next/image";
 import localFont from "next/font/local";
 import Link from "next/link";
-import ModalContent from "../ModalContent";
 import { createPortal } from "react-dom";
 
 const rubikMonoOneFont = localFont({
@@ -29,8 +28,6 @@ export default function SignUpForm() {
         if (state?.success) {
             setSuccess(true);
             setShowModal(true);
-            
-            // Show success modal for 2 seconds before redirecting
             setTimeout(() => {
                 setShowModal(false);
                 router.push(`/user-profile/${state.userName}`);
@@ -39,7 +36,7 @@ export default function SignUpForm() {
     }, [state, router]);
 
     return (
-        <div className="max-w-md w-full p-6 bg-[#7C3BFC]/25 rounded-lg shadow-lg border-2 border-[#FF41D9]">
+        <div className="max-w-md w-full p-6 bg-[#7C3BFC]/25 rounded-lg shadow-lg border-2 border-[#7141ff]">
             <div className="flex flex-col items-center mb-6">
                 <Image 
                     src="/spirit-blossom-logo.png"
@@ -61,7 +58,7 @@ export default function SignUpForm() {
                         id="email" 
                         placeholder="Enter your email"
                         disabled={pending}
-                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-pink-400"
+                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-[#7141ff]"
                     />
                 </div>
 
@@ -73,7 +70,7 @@ export default function SignUpForm() {
                         id="userName" 
                         placeholder="Enter your username(at least 10 characters)"
                         disabled={pending}
-                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-pink-400"
+                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-[#7141ff]"
                     />
                 </div>
 
@@ -85,18 +82,18 @@ export default function SignUpForm() {
                         id="password" 
                         placeholder="at least 10 characters, contains at least one uppercase letter, one lowercase letter and one number"
                         disabled={pending}
-                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-pink-400"
+                        className="w-full p-4 border-2 border-purple-300 rounded-lg bg-transparent text-white focus:outline-none focus:border-[#7141ff]"
                     />
                 </div>
 
                 <div className="text-left mb-6">
-                    <a href="/login-page" className="text-sm text-purple-200 hover:text-white">Have an account? Sign in</a>
+                    <Link href="/login-page" className="text-sm text-purple-200 hover:text-white">Have an account? Sign in</Link>
                 </div>
 
                 <div className="flex gap-4">
                     <button 
                         type="submit" 
-                        className="flex-1 py-4 px-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white font-medium rounded hover:opacity-90 transition-opacity cursor-pointer"
+                        className="flex-1 py-4 px-4 bg-gradient-to-r bg-[#7141ff] text-white font-medium rounded hover:opacity-90 transition-opacity cursor-pointer"
                     >
                         {pending ? (
                             (
@@ -118,15 +115,8 @@ export default function SignUpForm() {
                             "Sign up"
                         )}
                     </button>
-                    <button 
-                        type="button" 
-                        className="flex-1 py-4 px-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white font-medium rounded hover:opacity-90 transition-opacity cursor-pointer"
-                    >
-                        <Link href="/login-page">Sign in</Link>
-                    </button>
                 </div>
             </form>
-
             {showModal && createPortal(
                 <div className="fixed p-4 inset-0 flex items-center justify-center z-50">
                     <div 
