@@ -57,7 +57,7 @@ export async function loginAction(prevState: unknown, formData: FormData) {
         return { 
             success: true,
             message: data.message || "Login successful",
-            userId: data.userId
+            userName: data.userName
         };
     } catch (error: unknown) {
         console.error("Error during login:", error);
