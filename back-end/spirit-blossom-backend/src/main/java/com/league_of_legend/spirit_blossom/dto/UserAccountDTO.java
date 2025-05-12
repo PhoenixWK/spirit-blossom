@@ -11,6 +11,11 @@ public class UserAccountDTO {
 
     public UserAccountDTO() {}
 
+    public UserAccountDTO(String email, String hashedPassword) {
+        this.email = email;
+        this.hashedPassword = hashedPassword;
+    }
+    
     public UserAccountDTO(String email, String username, String hashedPassword) {
         this.email = email;
         this.userName = username;

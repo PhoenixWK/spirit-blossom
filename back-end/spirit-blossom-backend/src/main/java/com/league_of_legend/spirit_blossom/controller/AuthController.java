@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.league_of_legend.spirit_blossom.dto.UserAccountDTO;
@@ -31,10 +30,9 @@ public class AuthController {
     
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(
-        @RequestParam("email") String email, 
-        @RequestParam("password") String password
+        @RequestBody UserAccountDTO userAccountDTO
     ) throws AuthException {
-        UserAccount user = authService.findUserAccountByEmailAndHashedPassword(email, password);
+        UserAccount user = authService.findUserAccountByEmailAndHashedPassword(userAccountDTO.getEmail(), userAccountDTO.getHashedPassword());
         Map<String, Object> response = new HashMap<>();
 
         if(user == null) {
