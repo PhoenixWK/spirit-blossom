@@ -1,3 +1,0 @@
-- Primary key for user_account table: BINARY(16)
-
-- Primary key for user_profile table: VARCHAR(6), combination of '#' and a number string consisting of digits from 0 to 9
